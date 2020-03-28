@@ -1,0 +1,70 @@
+@page
+@model MediKeeper.Pages.Items.IndexModel
+
+@{
+    ViewData["Title"] = "App";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>App</title>
+</head>
+<body>
+    <p><strong>Task 1: </strong>I'm using Entity Frameworks to store the data.</p>
+    <p><strong>Task 2-4: </strong>Since the page relies on GET, I placed the functionality within OnGetAsync.</p>
+    <p>Normally I'd separate the code into their own functions for unit testing, but I'll leave it as is.</p>
+    <p><strong>Task 7-8: </strong>Since I used Entity Frameworks, I was able to use scaffolding to implement CRUD.</p>
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+    <form>
+        <p>
+            <select asp-for="ItemName" asp-items="Model.ItemNames">
+                <option value="">All</option>
+            </select>
+            <input type="submit" value="Filter" asp-for="ButtonAction" />
+            <input type="submit" value="Max Costs" asp-for="ButtonAction" />
+        </p>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item[0].ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item[0].ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Item[0].Cost)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Item)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
